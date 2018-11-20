@@ -78,6 +78,7 @@ export function* callstackSaga() {
     if (yield select(evm.current.step.isCall)) {
       debug("got call");
       let address = yield select(evm.current.step.callAddress);
+      debug("address %s", address);
 
       // HACK
       // if there is no binary (e.g. in the case of precompiled contracts),
@@ -85,11 +86,14 @@ export function* callstackSaga() {
       // shouldn't tell the debugger that we're entering another execution
       // context
       let { context } = instances[address] || {};
+      debug("context %o", context);
       let { binary } = contexts[context] || {};
+      debug("binary %s", binary);
       if (!binary) {
         continue;
       }
 
+      debug("about to put call");
       yield put(actions.call(address));
     } else if (yield select(evm.current.step.isCreate)) {
       debug("got create");

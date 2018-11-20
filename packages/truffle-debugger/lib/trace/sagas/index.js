@@ -14,7 +14,9 @@ function* waitForTrace() {
   let addresses = [
     ...new Set(
       steps
-        .filter(({ op }) => op == "CALL" || op == "DELEGATECALL")
+        .filter(
+          ({ op }) => op == "CALL" || op == "DELEGATECALL" || op == "STATICCALL"
+        )
         .map(({ stack }) => "0x" + stack[stack.length - 2].substring(24))
     )
   ];

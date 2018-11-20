@@ -39,7 +39,10 @@ function createStepSelectors(step, state = null) {
      */
     isCall: createLeaf(
       ["./trace"],
-      step => step.op == "CALL" || step.op == "DELEGATECALL"
+      step =>
+        step.op == "CALL" ||
+        step.op == "DELEGATECALL" ||
+        step.op == "STATICCALL"
     ),
 
     /**
