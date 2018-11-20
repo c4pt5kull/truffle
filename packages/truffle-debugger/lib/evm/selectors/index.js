@@ -6,6 +6,8 @@ import levenshtein from "fast-levenshtein";
 
 import trace from "lib/trace/selectors";
 
+import { isCallMnemonic } from "lib/helpers";
+
 /**
  * create EVM-level selectors for a given trace step selector
  * may specify additional selectors to include
@@ -37,13 +39,7 @@ function createStepSelectors(step, state = null) {
      *
      * whether the opcode will switch to another calling context
      */
-    isCall: createLeaf(
-      ["./trace"],
-      step =>
-        step.op == "CALL" ||
-        step.op == "DELEGATECALL" ||
-        step.op == "STATICCALL"
-    ),
+    isCall: createLeaf(["./trace"], step => isCallMnemonic(step.op)),
 
     /**
      * .isCreate
