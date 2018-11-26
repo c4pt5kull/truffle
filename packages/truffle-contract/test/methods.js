@@ -441,7 +441,7 @@ describe("Methods", function() {
     });
 
     it("errors with receipt & assert message on internal OOG", async function() {
-      this.timeout(25000);
+      this.timeout(30000);
 
       const example = await Example.new(1);
       try {
